@@ -7,7 +7,9 @@ const pastPosRouter = require('./src/routers/PastPosRouter');
 const cntPosRouter = require('./src/routers/CntPosRouter');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'https://weather-condition-6kgur77ze-rookieterrys-projects.vercel.app'
+}));
 app.use(express.json());
 dotenv.config({ path: "./.env.local" });
 
