@@ -1,4 +1,4 @@
 [[headers]]
   for = "/api/*"
   [headers.values]
-    Access-Control-Allow-Origin = "https://weather-condition-8czs82mdg-rookieterrys-projects.vercel.app"
+    Access-Control-Allow-Origin = "*"
