@@ -28,9 +28,11 @@ OPENWEATHER_API_KEY=xxxxxx
 FIREBASE_APP_ID=xxxxxx
 FIREBASE_PROJECT_ID=xxxxxx
 FIREBASE_DATABASE_URL=xxxxxx
+# For Netlify deployment, please add the following row
+FIREBASE_ADMIN_SA_KEY=xxxxxx
 ```
 
-Replace the "xxxxxx" into yours, and you also need to add your own `serviceAccountKey.json` from your Google Firebase console.
+Replace the "xxxxxx" into yours, and you also need to replace the last row with the content in your own `serviceAccountKey.json` from your Google Firebase console if deployed on Netlify.
 
 Execute the command:
 
