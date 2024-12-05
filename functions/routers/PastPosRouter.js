@@ -120,7 +120,7 @@ const db = require("../utils/FirebaseConfig");
 exports.handler = async (event, context) => {
   const method = event.httpMethod;
   const pathSegments = event.path.split('/');
-  const id = pathSegments[pathSegments.length - 1]; // 获取路径中的 ID（如果存在）
+  const id = pathSegments[pathSegments.length - 1];
 
   switch (method) {
     case 'GET':
