@@ -4,7 +4,7 @@
 // const serviceAccount = require('../../weathermap-441215-d86b41ecf0d1.json');
 
 const admin = require("firebase-admin");
-// const serviceAccount = require("../../serviceAccountKey.json");
+const serviceAccount = JSON.parse(process.env.FIREBASE_ADMIN_SA_KEY);
 const dotenv = require('dotenv');
 
 dotenv.config({ path: './.env.local' });
@@ -35,7 +35,7 @@ const firebaseConfig = {
     projectId: process.env.PROJECT_ID,
     // The value of `databaseURL` depends on the location of the database
     databaseURL: process.env.FIREBASE_DATABASE_URL,
-    // credential: admin.credential.cert(serviceAccount)
+    credential: admin.credential.cert(serviceAccount)
 };
 
 // Initialize Realtime Database and get a reference to the service
