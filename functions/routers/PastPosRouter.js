@@ -117,6 +117,12 @@ const WritePastWeather = require("../utils/WritePastWeather");
 const { fetchPastData, fetchCurrentData } = require("../utils/FetchData");
 const db = require("../utils/FirebaseConfig");
 
+const headers = {
+  "Access-Control-Allow-Origin": "*",  // Allow all domains to access, adjust if needed
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",  // Allowed methods
+  "Access-Control-Allow-Headers": "Content-Type",  // Allowed headers
+};
+
 exports.handler = async (event, context) => {
   const method = event.httpMethod;
   const pathSegments = event.path.split('/');
@@ -146,6 +152,7 @@ exports.handler = async (event, context) => {
     default:
       return {
         statusCode: 405,
+        headers,
         body: JSON.stringify({ error: "Method Not Allowed" }),
       };
   }
@@ -158,6 +165,7 @@ const getAll = async (event) => {
     if (locationTimeRanges.length === 0) {
       return {
         statusCode: 404,
+        headers,
         body: JSON.stringify({ error: "No location data found" }),
       };
     }
@@ -171,12 +179,14 @@ const getAll = async (event) => {
 
     return {
       statusCode: 200,
+      headers,
       body: JSON.stringify(transData),
     };
   } catch (error) {
     console.error("Error fetching weather data:", error);
     return {
       statusCode: 500,
+      headers,
       body: JSON.stringify({ error: "Error fetching weather data" }),
     };
   }
@@ -189,6 +199,7 @@ const pastWea = async (event, id) => {
     if (locationTimeRanges.length === 0) {
       return {
         statusCode: 404,
+        headers,
         body: JSON.stringify({ error: "No location data found" }),
       };
     }
@@ -198,6 +209,7 @@ const pastWea = async (event, id) => {
     if (!locationData) {
       return {
         statusCode: 404,
+        headers,
         body: JSON.stringify({ error: "Location data not found for the given ID" }),
       };
     }
@@ -209,12 +221,14 @@ const pastWea = async (event, id) => {
 
     return {
       statusCode: 200,
+      headers,
       body: JSON.stringify(data),
     };
   } catch (error) {
     console.error("Error fetching weather data:", error);
     return {
       statusCode: 500,
+      headers,
       body: JSON.stringify({ error: "Error fetching weather data" }),
     };
   }
@@ -227,6 +241,7 @@ const cntWea = async (event, id) => {
     if (locationTimeRanges.length === 0) {
       return {
         statusCode: 404,
+        headers,
         body: JSON.stringify({ error: "No location data found" }),
       };
     }
@@ -236,6 +251,7 @@ const cntWea = async (event, id) => {
     if (!locationData) {
       return {
         statusCode: 404,
+        headers,
         body: JSON.stringify({ error: "Location data not found for the given ID" }),
       };
     }
@@ -245,12 +261,14 @@ const cntWea = async (event, id) => {
 
     return {
       statusCode: 200,
+      headers,
       body: JSON.stringify(data),
     };
   } catch (error) {
     console.error("Error fetching weather data:", error);
     return {
       statusCode: 500,
+      headers,
       body: JSON.stringify({ error: "Error fetching weather data" }),
     };
   }
@@ -269,6 +287,7 @@ const weatherAnalysis = (event) => {
       if (err) {
         reject({
           statusCode: 500,
+          headers,
           body: JSON.stringify({ error: err.message }),
         });
       } else {
@@ -276,11 +295,13 @@ const weatherAnalysis = (event) => {
           const analysisResults = JSON.parse(results.join(""));
           resolve({
             statusCode: 200,
+            headers,
             body: JSON.stringify(analysisResults),
           });
         } catch (parseError) {
           reject({
             statusCode: 500,
+            headers,
             body: JSON.stringify({ error: "Error parsing analysis results" }),
           });
         }
